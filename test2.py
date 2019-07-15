@@ -67,7 +67,7 @@ def backward(t):
 
 i=0
 j=0
-w = 120000.0
+w = 1200.0
 speed = 51.0
 cap = cv2.VideoCapture(0)
 
@@ -102,25 +102,31 @@ while True:
                     cv2.putText(frame, "centroid" , (cX - 25, cY - 25), cv2.FONT_HERSHEY_COMPLEX_SMALL, 1, (0, 255, 0), 3)
                     d = distance(cY)
                     if d is not None:
-                        dist = d
-                        CcX = cX
-                        CcY = cY
+                        if d < dist:
+                            dist = d
+                            CcX = cX
+                            CcY = cY
                     #cv2.drawContours(frame, [approx], 0, (0, 0, 0), 5)
     print(dist ,CcX, CcY)
     if dist == 300.0 and  CcX == 650 :
-            i = i + 1 
+            i = i + 1
+            print("shit")
 
     else:
+        print("1")
         i = 0
         j = 0
         if CcX < 310:
+            print("2")
             time =  float((310 - CcX)) /w
             rleft(time)
 
         elif CcX > 330:
+            print("3")
             time = float((CcX - 330)) /w
             rright(time)
         else:
+            print("4")
             time = dist /speed
             forward(time)
 
